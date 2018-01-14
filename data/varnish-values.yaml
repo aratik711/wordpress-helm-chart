@@ -1,0 +1,26 @@
+# Default values for varnish.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+#
+#
+
+replicaCount: 1
+
+varnish:
+  config: $varnishConfig
+image:
+  repository: million12/varnish
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  name: varnish
+  type: LoadBalancer
+  externalPort: 80
+  nodePort: $varnishNodePort
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

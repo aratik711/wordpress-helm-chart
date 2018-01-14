@@ -1,0 +1,35 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "varnish.fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "varnish.fullname" . }}
+    spec:
+      volumes:
+        - name: varnish-config
+          configMap:
+            name: {{ .Values.varnish.config }}
+            items:
+              - key: default.vcl
+                path: default.vcl
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }} 
+        env:
+        - name: VCL_CONFIG
+          value: /etc/varnish/default.vcl
+        volumeMounts:
+          - name: varnish-config
+            mountPath: /etc/varnish/
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        ports:
+        - containerPort: 80
