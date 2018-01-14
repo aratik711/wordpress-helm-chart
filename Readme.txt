@@ -14,7 +14,7 @@ I should be able to scale wordpress tier directly using kubectl or shell/python 
 
 Description:
 
-The apporbit project is used to deploy a simple 3 tier wordpress appication.
+The wordpress-helm-chart project is used to deploy a simple 3 tier wordpress appication.
 The backend will be mysql database (5.7.14), frontend will be wordpress application (4.9.1-r1) and proxy will be varnish (4).
 The WP blog will be available on the kubernetes node port 30080. 
 
@@ -45,9 +45,8 @@ After helm init, you should be able to run kubectl get pods --namespace kube-sys
 
 You can more details here: https://docs.helm.sh/using_helm/#installing-helm
 
-Unzip the apporbit.zip in any directory on the kubernetes node and edit the install.sh file in apporbit directory.
+Edit the install.sh file in wordpress-helm-chart directory.
 
-unzip apporbit.zip
 
 Edit the following variables:
 
